@@ -29,6 +29,11 @@ class Dotgpg
       dir.add_key(key)
     end
 
+    desc "encrypt path_to_file, output", "encrypts the content of stdin to file at path"
+    def encrypt(path, output)
+      Dotgpg::Dir.closest(path).encrypt(output, File.open(path))
+    end
+
     desc "key", "export your GPG public key in a format that `dotgpg add` will understand"
     option :"new-key", type: :boolean, desc: "Force creating a new key", aliases: ["-n"]
     option :email, type: :string, desc: "Use a specific email address", aliases: ["-e"]
